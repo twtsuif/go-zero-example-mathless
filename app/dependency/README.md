@@ -1,0 +1,5 @@
+dependency微服务的设计
+
+api相当于controller层 写一定的逻辑
+
+rpc只提供接口 见proto文件说明

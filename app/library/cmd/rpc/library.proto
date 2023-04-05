@@ -1,0 +1,135 @@
+syntax = "proto3";
+package library;
+option go_package = "./library";
+
+service LibraryService {
+  rpc CreateLibrary(CreateLibraryRequest) returns (CreateLibraryResponse);
+  rpc GetLibraries(GetLibrariesRequest) returns (GetLibrariesResponse);
+  rpc DeleteLibrary(DeleteLibraryRequest) returns (DeleteLibraryResponse);
+  rpc UpdateLibrary(UpdateLibraryRequest) returns (UpdateLibraryResponse);
+
+  rpc PublishLibraryApply(PublishLibraryApplyRequest) returns (PublishLibraryApplyResponse);
+  rpc PublishLibraryGranted(PublishLibraryGrantedRequest) returns (PublishLibraryGrantedResponse);
+  rpc PublishLibraryDenied(PublishLibraryDeniedRequest) returns (PublishLibraryDeniedResponse);
+
+  rpc CreateFunction(CreateFunctionRequest) returns (CreateFunctionResponse);
+  rpc GetFunctions(GetFunctionsRequest) returns (GetFunctionsResponse);
+  rpc DeleteFunction(DeleteFunctionRequest) returns (DeleteFunctionResponse);
+  rpc UpdateFunction(UpdateFunctionRequest) returns (UpdateFunctionResponse);
+}
+
+// 数据库结构体
+message Library {
+  int64 Id = 1;
+  string Name = 2;
+  string Description = 3;
+  int64 Status = 4;
+}
+
+message Function {
+  int64 Id = 1;
+  string Name = 2;
+  string FilePathJson = 3;
+  string OssBucket = 4;
+  string OssObject = 5;
+}
+
+// 函数库相关结构体
+message CreateLibraryRequest {
+  int64 Uid = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message CreateLibraryResponse {
+  int64 Id = 1;
+}
+
+message GetLibrariesRequest {
+  int64 Uid = 1;
+}
+
+message GetLibrariesResponse {
+  repeated Library Libraries = 3;
+}
+
+message  DeleteLibraryRequest {
+  int64 Uid = 1;
+  int64 LibraryId = 2;
+}
+
+message DeleteLibraryResponse {
+}
+
+message UpdateLibraryRequest {
+  int64 LibraryId = 1;
+  int64 Uid = 2;
+  string LibraryName = 3;
+  string LibraryDescription = 4;
+}
+
+message UpdateLibraryResponse {
+}
+
+
+// 发布相关
+message PublishLibraryApplyRequest {
+  int64 Uid = 1;
+  int64 LibraryId = 2;
+}
+
+message PublishLibraryApplyResponse {
+}
+
+message PublishLibraryGrantedRequest {
+  int64 Uid = 1;
+  repeated int64 LibraryIds = 2;
+}
+
+message PublishLibraryGrantedResponse {
+}
+
+message PublishLibraryDeniedRequest {
+  int64 Uid = 1;
+  repeated int64 LibraryIds = 2;
+}
+
+message PublishLibraryDeniedResponse {
+}
+
+// 函数相关
+message CreateFunctionRequest {
+  int64 Uid = 1;
+  string Name = 3;
+  string FilePathJson = 4;
+  string OssBucket = 5;
+  string OssObject = 6;
+  int64 LibraryId = 9;
+}
+message CreateFunctionResponse {
+  int64 Id = 3;
+}
+
+message  GetFunctionsRequest {
+  int64 Uid = 1;
+  int64 LibraryId = 2;
+}
+message GetFunctionsResponse {
+  repeated Function Functions = 3;
+}
+
+message  DeleteFunctionRequest {
+  int64 Uid = 1;
+  int64 FunctionId = 3;
+}
+message DeleteFunctionResponse {
+}
+
+message UpdateFunctionRequest {
+  int64 Id = 1;
+  int64 Uid =2;
+  string Name = 3;
+  string FilePathJson = 4;
+}
+message  UpdateFunctionResponse {
+}

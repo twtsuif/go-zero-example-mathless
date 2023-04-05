@@ -1,0 +1,53 @@
+syntax = "v1"
+
+info(
+	title: "用户接口"
+	desc: ""
+	author: "随风"
+	email: "2499110977@qq.com"
+	version: "v1"
+)
+
+// 用户接口
+@server(
+	group: user
+	prefix: api/v1/user
+)
+service user {
+	@handler LoginHandler
+	post /login (LoginReq) returns (LoginResp)
+	
+	@handler RegisterHandler
+	post /register (RegisterReq) returns (RegisterResp)
+
+	@doc "向目标邮箱发送验证码"
+	@handler VerifyEmailHandler
+	get /verifyEmail (VerifyEmailReq) returns (VerifyEmailResp)
+}
+
+type (
+	LoginReq {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+	LoginResp {
+		Token string `json:"token"`
+	}
+
+	RegisterReq {
+		Email      string `json:"email"`
+		Username   string `json:"username"`
+		Password   string `json:"password"`
+		VerifyCode string `json:"verifyCode"`
+	}
+	RegisterResp {
+		Token string `json:"token"`
+	}
+
+	VerifyEmailReq {
+		Email string `json:"email"`
+	}
+	VerifyEmailResp {
+		Code string `json:"code"`
+	}
+)

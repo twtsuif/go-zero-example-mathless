@@ -1,0 +1,60 @@
+syntax = "v1"
+
+info(
+	title: "依赖接口"
+	desc: ""
+	author: "随风"
+	email: "2499110977@qq.com"
+	version: "v1"
+)
+
+@server(
+	jwt: JwtAuth
+	group: dependency
+	prefix: api/v1/dependency
+)
+service dependency {
+	@doc "搜索python包"
+	@handler SearchDependenciesHandler
+	get /search (SearchDependenciesReq) returns (SearchDependenciesResp)
+	
+	@doc "获取项目依赖"
+	@handler GetDependenciesHandler
+	get /list (GetDependenciesReq) returns (GetDependenciesResp)
+	
+	@doc "下载依赖"
+	@handler DownloadDependencyHandler
+	post /download (DownloadDependencyReq) returns (DownloadDependencyResp)
+}
+
+type (
+	SearchDependenciesReq {
+		Name     string `form:"name"`
+		Page     int32  `form:"page"`
+		PageSize int32  `form:"pageSize"`
+	}
+	SearchDependenciesResp {
+		Packages []string `json:"packages"`
+		Total    int32    `json:"total"`
+	}
+
+	GetDependenciesReq {
+		// typ  1为工程依赖  2为函数库依赖
+		Typ        int8   `form:"typ"`
+		ProjectId  string `form:"projectId"`
+		FunctionId string `form:"functionId"`
+	}
+	GetDependenciesResp {
+		PackageJson string `json:"packageJson"`
+	}
+
+	DownloadDependencyReq {
+		// typ  1为工程依赖  2为函数库依赖
+		Typ          int8   `json:"typ"`
+		ProjectId    string `json:"projectId"`
+		FunctionId   string `json:"functionId"`
+		Requirements string `json:"requirements"`
+	}
+	DownloadDependencyResp {
+	}
+)

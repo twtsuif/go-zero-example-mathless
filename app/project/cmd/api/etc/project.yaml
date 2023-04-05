@@ -1,0 +1,13 @@
+Name: mathless-api
+Host: 0.0.0.0
+Port: 8888
+
+JwtAuth:
+  AccessSecret: "mathless"
+  AccessExpire: 360000
+
+ProjectRpcConf:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: project.rpc

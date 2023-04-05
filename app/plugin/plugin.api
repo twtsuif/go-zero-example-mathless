@@ -1,0 +1,31 @@
+syntax = "v1"
+
+info(
+	title: "插件接口"
+	desc: ""
+	author: "随风"
+	email: "2499110977@qq.com"
+	version: "v1"
+)
+
+// 插件接口
+@server(
+	jwt: JwtAuth
+	group: plugin
+	prefix: api/v1/plugin
+)
+service plugin {
+	@handler RunFcHandler
+	get /invokeFc (InvokeFcReq) returns (InvokeFcResp)
+}
+
+type (
+	InvokeFcReq {
+		ServiceName  string `json:"serviceName"`
+		FunctionName string `json:"functionName"`
+		Data         string `json:"data"`
+	}
+	InvokeFcResp {
+		Result string `json:"message"`
+	}
+)

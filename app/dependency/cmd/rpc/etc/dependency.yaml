@@ -1,0 +1,23 @@
+Name: dependency.rpc
+ListenOn: 0.0.0.0:8080
+Timeout: 0
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: dependency.rpc
+
+AliyunConf:
+  AccessKeyID: ""
+  AccessKeySecret: ""
+  FcConf:
+    Endpoint: "https://1255423045949708.cn-shenzhen.fc.aliyuncs.com"
+    ApiVersion: "2016-08-15"
+  OssConf:
+    Endpoint: "https://oss-cn-shenzhen.aliyuncs.com"
+    Bucket: ""
+
+DB:
+  DataSource: root:root@tcp(localhost:3306)/mathless
+
+Cache:
+  - Host: localhost:6379

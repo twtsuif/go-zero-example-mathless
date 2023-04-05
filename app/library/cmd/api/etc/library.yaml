@@ -1,0 +1,13 @@
+Name: library
+Host: 0.0.0.0
+Port: 8888
+
+JwtAuth:
+  AccessSecret: "mathless"
+  AccessExpire: 360000
+
+LibraryRpcConf:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: library.rpc

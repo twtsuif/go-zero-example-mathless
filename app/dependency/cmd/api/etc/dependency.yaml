@@ -1,0 +1,25 @@
+Name: dependency
+Host: 0.0.0.0
+Port: 8888
+Timeout: 0
+
+JwtAuth:
+  AccessSecret: "mathless"
+  AccessExpire: 360000
+
+DependencyRpcConf:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: dependency.rpc
+  Timeout: 0
+
+AliyunConf:
+  AccessKeyID:
+  AccessKeySecret:
+  FcConf:
+    Endpoint: "https://1255423045949708.cn-shenzhen.fc.aliyuncs.com"
+    ApiVersion: "2016-08-15"
+  OssConf:
+    Endpoint: "https://oss-cn-shenzhen.aliyuncs.com"
+    Bucket:

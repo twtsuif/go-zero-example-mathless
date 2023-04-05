@@ -1,0 +1,42 @@
+syntax = "proto3";
+package user;
+option go_package = "./user";
+
+service UserService {
+  // 注册
+  rpc RegisterUser (RegisterUserRequest) returns (RegisterUserResponse);
+
+  // 登录
+  rpc LoginUser (LoginUserRequest) returns (LoginUserResponse);
+
+  // 发送邮箱验证码
+  rpc VerifyEmail (VerifyEmailRequest) returns (VerifyEmailResponse);
+}
+
+message RegisterUserRequest {
+  string Email = 1;
+  string UserName = 2;
+  string Password = 3;
+  string verifyCode = 4;
+}
+
+message RegisterUserResponse {
+  string Token = 5;
+}
+
+message LoginUserRequest {
+  string Email = 1;
+  string Password = 2;
+}
+
+message LoginUserResponse {
+  string Token = 1;
+}
+
+message VerifyEmailRequest {
+  string Email = 1;
+}
+
+message VerifyEmailResponse {
+  string Code = 1;
+}

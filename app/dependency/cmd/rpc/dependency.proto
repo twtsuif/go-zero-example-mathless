@@ -1,0 +1,46 @@
+syntax = "proto3";
+package dependency;
+option go_package = "./dependency";
+
+// 下载依赖接口约定： 依赖下载到的位置 + 依赖内容
+// 获取依赖接口约定： 解析传入的位置 + 返回依赖内容
+// 命名：FileLocation  将依赖下载到哪里
+
+service DependencyService {
+  // 获取依赖内容
+  rpc GetDependency(GetDependencyRequest) returns (GetDependencyResponse);
+  // 下载依赖
+  rpc DownloadDependency(DownloadDependencyRequest) returns (DownloadDependencyResponse);
+  // 搜索依赖
+  rpc SearchDependencies(SearchDependenciesRequest) returns (SearchDependenciesResponse);
+}
+
+// GetDependency
+message GetDependencyRequest{
+  string DependencyFileLocation = 1;
+}
+
+message GetDependencyResponse{
+  string PackagesJson = 1;
+}
+
+// DownloadDependency
+message DownloadDependencyRequest{
+  string FileLocation = 1;
+  string Requirements = 2;
+}
+
+message DownloadDependencyResponse{
+}
+
+// SearchDependencies
+message SearchDependenciesRequest {
+  string Name = 1;
+  int32 Page = 2;
+  int32 PageSize = 3;
+}
+
+message SearchDependenciesResponse {
+  repeated string Packages = 1;
+  int32 Total = 2;
+}

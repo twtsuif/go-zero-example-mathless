@@ -1,0 +1,67 @@
+// 主界面工程接口
+@server(
+	jwt: JwtAuth
+	group: project
+	prefix: api/v1/project
+)
+service project {
+	@handler GetProjectsHandler
+	get /list (GetProjectsReq) returns (GetProjectsResp)
+	
+	@handler CreateProjectHandler
+	post / (CreateProjectReq) returns (CreateProjectResp)
+	
+	@handler UpdateProjectHandler
+	put / (UpdateProjectReq) returns (UpdateProjectResp)
+	
+	@handler DeleteProjectHandler
+	delete / (DeleteProjectReq) returns (DeleteProjectResp)
+	
+	@handler RunProjectHandler
+	get /run (RunProjectReq) returns (RunProjectResp)
+}
+
+type (
+	Project {
+		Id           int64  `json:"id"`
+		Name         string `json:"name"`
+		FilePathJson string `json:"filePathJson"`
+	}
+
+	GetProjectsReq {
+	}
+	GetProjectsResp {
+		Projects []Project `json:"projects"`
+	}
+
+	CreateProjectReq {
+		ProjectName  string `json:"projectName"`
+		FilePathJson string `json:"filePathJson"`
+	}
+	CreateProjectResp {
+		Id int64 `json:"id"`
+	}
+
+	UpdateProjectReq {
+		ProjectId    int64  `json:"projectId"`
+		ProjectName  string `json:"projectName"`
+		FilePathJson string `json:"filePathJson"`
+	}
+	UpdateProjectResp {
+	}
+
+	DeleteProjectReq {
+		ProjectId int64 `form:"projectId"`
+	}
+	DeleteProjectResp {
+	}
+
+	RunProjectReq {
+		ProjectId   int64  `json:"projectId"`
+		OssBucket   string `json:"ossBucket"`
+		OssObject   string `json:"ossObject"`
+		HandlerName string `json:"handlerName"`
+	}
+	RunProjectResp {
+	}
+)

@@ -1,0 +1,64 @@
+syntax = "proto3";
+package project;
+option go_package = "./project";
+
+service ProjectService {
+  // 获取用户的工程
+  // param: uid
+  // return: project_struct
+  rpc GetProjects(GetProjectsRequest) returns (GetProjectsResponse);
+
+  // 创建工程
+  // param: uid project_struct
+  rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse);
+
+  // 删除工程
+  // param: uid
+  rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse);
+
+  // 更新工程
+  // param: uid project_struct
+  rpc UpdateProject(UpdateProjectRequest) returns (UpdateProjectResponse);
+}
+
+message GetProjectsRequest {
+  int64 Uid = 1;
+}
+
+message GetProjectsResponse{
+  repeated Project Projects = 3;
+}
+
+message Project {
+  int64 Id = 1;
+  string Name = 2;
+  string FilePathJson = 3;
+}
+
+message CreateProjectRequest {
+  int64 Uid = 1;
+  string ProjectName = 2;
+  string FilePathJson = 3;
+}
+
+message CreateProjectResponse {
+  int64 ProjectId = 1;
+}
+
+message  DeleteProjectRequest {
+  int64 Uid = 1;
+  int64 ProjectId = 2;
+}
+
+message DeleteProjectResponse {
+}
+
+message UpdateProjectRequest {
+  int64 Uid = 1;
+  int64 ProjectId = 2;
+  string ProjectName = 3;
+  string FilePathJson = 4;
+}
+
+message  UpdateProjectResponse {
+}

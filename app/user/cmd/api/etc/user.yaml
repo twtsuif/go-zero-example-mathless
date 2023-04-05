@@ -1,0 +1,13 @@
+Name: user
+Host: 127.0.0.1
+Port: 8888
+
+JwtAuth:
+  AccessSecret: "mathless"
+  AccessExpire: 360000
+
+UserRpcConf:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: user.rpc

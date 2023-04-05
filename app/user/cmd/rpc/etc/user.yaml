@@ -1,0 +1,26 @@
+Name: user.rpc
+ListenOn: 127.0.0.1:8080
+
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: user.rpc
+
+JwtAuth:
+  AccessSecret: "mathless"
+  AccessExpire: 360000
+
+SMTPConf:
+  Host: "smtp.yeah.net"
+  Port: 465
+  Username: ""
+  Password: ""
+
+Redis:
+  Host: localhost:6379
+
+DB:
+  DataSource: root:root@tcp(localhost:3306)/mathless
+
+Cache:
+  - Host: localhost:6379

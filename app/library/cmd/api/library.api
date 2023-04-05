@@ -1,0 +1,152 @@
+info(
+	title: "函数库接口"
+	desc: ""
+	author: "随风"
+	email: "2499110977@qq.com"
+	version: "v1"
+)
+
+@server(
+	jwt: JwtAuth
+	group: library
+	prefix: api/v1/library
+)
+service library {
+	@handler GetLibrariesHandler
+	get /list (GetLibrariesReq) returns (GetLibrariesResp)
+	
+	@handler CreateLibraryHandler
+	post / (CreateLibraryReq) returns (CreateLibraryResp)
+	
+	@handler UpdateLibraryHandler
+	put / (UpdateLibraryReq) returns (UpdateLibraryResp)
+	
+	@handler DeleteLibraryHandler
+	delete / (DeleteLibraryReq) returns (DeleteLibraryReq)
+	
+	@handler ApplyLibraryHandler
+	get /apply (ApplyLibraryReq) returns (ApplyLibraryResp)
+	
+	@handler GrantedLibraryHandler
+	get /granted (GrantedLibraryReq) returns (GrantedLibraryResp)
+	
+	@handler DeniedLibraryHandler
+	get /denied (DeniedLibraryReq) returns (DeniedLibraryResp)
+}
+
+// 函数接口
+@server(
+	jwt: JwtAuth
+	group: function
+	prefix: api/v1/function
+)
+service library {
+	@handler GetFunctionsHandler
+	get /list (GetFunctionsReq) returns (GetFunctionsResp)
+	
+	@handler CreateFunctionHandler
+	post / (CreateFunctionReq) returns (CreateFunctionResp)
+	
+	@handler UpdateFunctionHandler
+	put / (UpdateFunctionReq) returns (UpdateFunctionResp)
+	
+	@handler DeleteFunctionHandler
+	delete / (DeleteFunctionReq) returns (DeleteFunctionResp)
+}
+
+type Library {
+	Id          int64  `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Status      int64  `json:"status"`
+}
+
+type Function {
+	Id           int64  `json:"id"`
+	Name         string `json:"name"`
+	FilePathJson string `json:"filePathJson"`
+	OssBucket    string `json:"ossBucket"`
+	OssObject    string `json:"ossObject"`
+}
+
+type (
+	GetLibrariesReq {
+	}
+	GetLibrariesResp {
+		Libraries []Library `json:"libraries"`
+	}
+
+	CreateLibraryReq {
+		Name        string `json:"name"`
+		Description string `json:"description"`
+	}
+	CreateLibraryResp {
+		Id int64 `json:"id"`
+	}
+
+	UpdateLibraryReq {
+		Id          int64  `json:"id"`
+		Name        string `json:"name"`
+		Description string `json:"description"`
+	}
+	UpdateLibraryResp {
+	}
+
+	DeleteLibraryReq {
+		Id int64 `form:"id"`
+	}
+	DeleteLibraryResp {
+	}
+)
+
+type (
+	GetFunctionsReq {
+		LibraryId int64 `form:"libraryId"`
+	}
+	GetFunctionsResp {
+		Functions []Function `json:"functions"`
+	}
+
+	CreateFunctionReq {
+		Name         string `json:"name"`
+		LibraryId    int64  `json:"libraryId"`
+		FilePathJson string `json:"filePathJson"`
+		OssBucket    string `json:"ossBucket"`
+		OssObject    string `json:"ossObject"`
+	}
+	CreateFunctionResp {
+		Id int64 `json:"id"`
+	}
+
+	UpdateFunctionReq {
+		Id           int64  `json:"id"`
+		Name         string `json:"name"`
+		FilePathJson string `json:"filePathJson"`
+	}
+	UpdateFunctionResp {
+	}
+
+	DeleteFunctionReq {
+		Id int64 `form:"id"`
+	}
+	DeleteFunctionResp {
+	}
+
+	ApplyLibraryReq {
+		LibraryId int64 `form:"libraryId"`
+	}
+	ApplyLibraryResp {
+	}
+
+	GrantedLibraryReq {
+		LibraryIds []int64 `json:"libraryIds"`
+	}
+	GrantedLibraryResp {
+	}
+
+	DeniedLibraryReq {
+		LibraryIds []int64 `json:"libraryIds"`
+	}
+	DeniedLibraryResp {
+	}
+)
